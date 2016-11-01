@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			img{
+				display: block;
+				position: absolute;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload=function()
+			{
+				var img=document.getElementsByTagName("img")[0];
+				img.flag=false;
+				img.onmousedown=function(evt)
+				{
+					evt=evt||window.event;
+					img.flag=true;
+					img.offX=evt.offsetX;
+					img.offY=evt.offsetY;
+				}
+				document.onmousemove=function(evt)
+				{
+					evt=evt||window.event;
+					if (img.flag) {
+						var left=evt.clientX-img.offX;
+						var top=evt.clientY-img.offY;
+						var leftMax=document.documentElement.clientWidth-img.offsetWidth;
+						var topMax=document.documentElement.clientHeight-img.offsetHeight;
+						if(evt.preventDefault){
+							 evt.preventDefault();
+						 }else{
+							 evt.returnValue=false;
+						 }
+						if (left<0) {
+							left=0;
+						}
+						if (top<0) {
+							top=0;
+						}
+						if (left>=leftMax) {
+							left=leftMax;
+						}
+						if (top>=topMax) {
+							top=topMax;
+						}
+						img.style.left=left+"px";
+						img.style.top=top+"px";
+					}
+				}
+				document.onmouseup=function(evt)
+				{
+					evt=evt||window.event;
+					img.flag=false;
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<img src="22.gif" />
+	</body>
+</html>
